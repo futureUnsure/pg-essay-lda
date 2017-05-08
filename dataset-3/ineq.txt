@@ -1,0 +1,31 @@
+
+January 2016Since the 1970s, economic inequality in the US has increased
+dramatically. And in particular, the rich have gotten a lot richer.
+Nearly everyone who writes about it says that economic inequality
+should be decreased.I'm interested in this topic because I was one of the founders of
+a company called Y Combinator that helps people start startups.
+Almost by definition, if a startup succeeds its founders become
+rich. Which means by helping startup founders I've been helping to
+increase economic inequality.  If economic inequality should be 
+decreased, I shouldn't be helping founders. No one should
+be.But that doesn't sound right. So have we just shown, by reductio
+ad absurdum, that it's false that economic inequality should be 
+decreased?  That doesn't sound right either.   Surely it's bad that some people
+are born practically locked into poverty, while at the other extreme
+fund managers exploit loopholes to cut their income taxes in half.The solution to this puzzle is to realize that economic inequality
+is not just one thing.  It consists of some things that are very
+bad, like kids with no chance of reaching their potential, and others
+that are good, like Larry Page and Sergey Brin starting the company
+you use to find things online.If you want to understand economic inequality—and more importantly,
+if you actually want to fix the bad aspects of it—you have to
+tease apart the components.  And yet the trend in nearly everything
+written about the subject is to do the opposite: to squash together
+all the aspects of economic inequality as if it were a single
+phenomenon.Sometimes this is done for ideological reasons.  Sometimes it's
+because the writer only has very high-level data and so draws
+conclusions from that, like the proverbial drunk who looks for his
+keys under the lamppost, instead of where he dropped them, because the
+light is better there.  Sometimes it's because the writer doesn't
+understand critical aspects of inequality, like the role of technology
+in wealth creation.  Much of the time, perhaps most of the time,
+writing about economic inequality combines all three.
