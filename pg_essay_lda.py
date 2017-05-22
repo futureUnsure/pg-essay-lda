@@ -1,11 +1,19 @@
+import os
 import codecs
 import sys
 import spacy
-import gensim
+from gensim.corpora import Dictionary
 from parsedatetime import Calendar
 
 spacy_model = spacy.load('en')
 cal_parser = Calendar()
+
+dataset_path = "./dataset-3/"
+assert(os.access(dataset_path, os.F_OK))
+
+essay_files = [dataset_path + essay_file for dir_name, sub_dirs, files in \
+        os.walk(dataset_path) for essay_file in files ]
+
 
 def remove_time_date(doc):
     
@@ -35,24 +43,42 @@ def lemmatize(doc):
 
     return spacy_model(' '.join([word.lemma_ for word in doc if (word.lemma and word.lemma_ != "-PRON-")]))
 
+def pipeline(essays):
+
+    res = []
+    for doc in spacy_model.pipe(essays, batch_size=50, n_threads=4):
+        f0 = doc
+        #f0 = lemmatize(doc)
+        #print(f0.text)
+        f1 = remove_time_date(f0)
+        #print(f1.text)
+        f2 = remove_numeric_data(f1)
+        #print(f2.text)
+        f3 = remove_single_character_tokens(f2)
+        #print(f3.text)
+        f4 = remove_internet_refs(f3)
+        #print(f4.text)
+        f5 = remove_whitespaces(f4)
+        #print(f5.text)
+        f6 = remove_stop_words(f5)
+        #print(f6.text)
+        res.append([f6.text])
+
+    return res
+
 def main():
-    sample_pg_doc = codecs.open("./dataset-3/13sentences.txt",
-            encoding=sys.stdout.encoding, errors='replace').read().lower()
 
-    f0 = lemmatize(spacy_model(sample_pg_doc))
-    print(f0.text)
-    f1 = remove_time_date(spacy_model(sample_pg_doc))
-    print(f1.text)
-    f2 = remove_numeric_data(f1)
-    print(f2.text)
-    f3 = remove_single_character_tokens(f2)
-    print(f3.text)
-    f4 = remove_internet_refs(f3)
-    print(f4.text)
-    f5 = remove_whitespaces(f4)
-    print(f5.text)
-    f6 = remove_stop_words(f5)
-    print(f6.text)
+    essays = [codecs.open(essay_file,
+            encoding="utf-8", errors='replace').read().lower()
+            for essay_file in essay_files]
 
+    clean_essays = pipeline(essays)
+
+    dictionary = Dictionary(clean_essays)
+
+    corpus = [dictionary.doc2bow(essay) for essay in clean_essays]
+
+    print("No. of unique tokens {}".format(len(dictionary)))
+    print("No. of documents {}".format(len(corpus)))
 
 main()
