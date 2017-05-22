@@ -3,7 +3,9 @@ import codecs
 import sys
 import spacy
 from gensim.corpora import Dictionary
+from gensim.models import LdaModel
 from parsedatetime import Calendar
+from pprint import pprint
 
 spacy_model = spacy.load('en')
 cal_parser = Calendar()
@@ -78,7 +80,18 @@ def main():
 
     corpus = [dictionary.doc2bow(essay) for essay in clean_essays]
 
+    #??
+    temp = dictionary[0]
+    id2word = dictionary.id2token
+
     print("No. of unique tokens {}".format(len(dictionary)))
     print("No. of documents {}".format(len(corpus)))
+
+    model = LdaModel(corpus=corpus, id2word=id2word,\
+            chunksize=10, alpha='auto', eta='auto', iterations=400,\
+            num_topics=10, passes=20, eval_every=None)
+
+    top_topics = model.top_topics(corpus, num_words=20)
+    pprint(top_topics)
 
 main()
