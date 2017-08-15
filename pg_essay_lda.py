@@ -76,9 +76,11 @@ def main():
 
     clean_essays = pipeline(essays)
 
-    dictionary = Dictionary(clean_essays)
+    clean_essays_split = [x[0].split() for x in clean_essays]
 
-    corpus = [dictionary.doc2bow(essay) for essay in clean_essays]
+    dictionary = Dictionary(clean_essays_split)
+
+    corpus = [dictionary.doc2bow(x) for x in clean_essays_split]
 
     #??
     temp = dictionary[0]
