@@ -13,6 +13,7 @@ cal_parser = Calendar()
 dataset_path = "./dataset-3/"
 assert(os.access(dataset_path, os.F_OK))
 
+#TODO:Refactor list comprehension into a loop
 essay_files = [dataset_path + essay_file for dir_name, sub_dirs, files in \
         os.walk(dataset_path) for essay_file in files ]
 
@@ -43,7 +44,8 @@ def remove_stop_words(doc):
 
 def lemmatize(doc):
 
-    return spacy_model(' '.join([word.lemma_ for word in doc if (word.lemma and word.lemma_ != "-PRON-")]))
+    #return spacy_model(' '.join([word.lemma_ for word in doc if (word.lemma and word.lemma_ != "-PRON-")]))
+    return spacy_model(' '.join([word.lemma_ for word in doc]))
 
 def pipeline(essays):
 
@@ -68,12 +70,15 @@ def pipeline(essays):
 
     return res
 
+
 def main():
 
+    #TODO:Refactor list comprehension into a loop
     essays = [codecs.open(essay_file,
             encoding="utf-8", errors='replace').read().lower()
             for essay_file in essay_files]
 
+    #TODO:Refactor cleaning of text. Lots more improvement can be made.
     clean_essays = pipeline(essays)
 
     clean_essays_split = [x[0].split() for x in clean_essays]
